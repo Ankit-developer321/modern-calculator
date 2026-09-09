@@ -1,0 +1,16 @@
+{
+  "name": "modern-calculator",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npx cap sync android",
+    "test": "node tests/calculator.test.js"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.5.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.1",
+    "@capacitor/android": "^8.5.1"
+  }
+}
