@@ -4,26 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#090b10">
-  <meta name="description" content="Modern offline-first calculator with scientific tools and optional live currency conversion.">
+  <meta name="description" content="Modern Indian-first calculator with scientific tools, Indian number formatting, units and optional live currency conversion.">
   <title>Modern Calculator</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <main class="app-shell">
     <header class="topbar">
-      <div class="brand"><div class="brand-mark">⌁</div><div><div class="eyebrow">SMART CALCULATOR</div><h1>Modern</h1></div></div>
+      <div class="brand"><div class="brand-mark">₹</div><div><div class="eyebrow">INDIA • SMART CALCULATOR</div><h1>Modern</h1></div></div>
       <div class="top-actions"><button class="icon-btn" id="themeBtn" aria-label="Change theme">◐</button><button class="icon-btn" id="settingsBtn" aria-label="Open settings">⚙</button></div>
     </header>
 
     <section class="display-card" aria-live="polite">
-      <div class="display-top"><div class="display-meta"><span id="angleLabel">DEG</span><span id="memoryLabel" class="hidden">MEM</span></div><button class="mini-action" id="copyDisplay" aria-label="Copy result">Copy</button></div>
+      <div class="display-top"><div class="display-meta"><span id="angleLabel">DEG</span><span id="memoryLabel" class="hidden">MEM</span><span id="numberSystemLabel">IND</span></div><button class="mini-action" id="copyDisplay" aria-label="Copy result">Copy</button></div>
       <div id="expression" class="expression">0</div>
       <div id="result" class="result">0</div>
+      <div id="resultWords" class="result-words"></div>
       <div class="display-glow"></div>
     </section>
 
     <div class="mode-wrap">
-      <nav class="mode-tabs" aria-label="Calculator mode"><button class="mode active" data-mode="basic">Basic</button><button class="mode" data-mode="scientific">Scientific</button><button class="mode" data-mode="tools">Tools</button></nav>
+      <nav class="mode-tabs" aria-label="Calculator mode"><button class="mode active" data-mode="basic">Basic</button><button class="mode" data-mode="scientific">Scientific</button><button class="mode" data-mode="tools">India + Tools</button></nav>
     </div>
 
     <section id="basicPanel" class="panel">
@@ -38,15 +39,41 @@
     </section>
 
     <section id="toolsPanel" class="panel hidden">
-      <div class="tool-hero"><div><span class="eyebrow">QUICK TOOLS</span><h2>Useful when you need them</h2></div><span class="tool-dot"></span></div>
-      <div class="tool-card"><div class="tool-title"><span class="tool-icon">↔</span><div><span class="badge offline">OFFLINE</span><h2>Unit converter</h2></div></div><p>Length, weight and temperature. Works without internet.</p><select id="unitType"><option value="length">Length</option><option value="weight">Weight</option><option value="temperature">Temperature</option></select><div class="converter-row"><input id="unitInput" inputmode="decimal" value="1" aria-label="Unit amount"><select id="unitFrom" aria-label="From unit"></select><span>→</span><select id="unitTo" aria-label="To unit"></select></div><div id="unitResult" class="tool-result">—</div></div>
-      <div class="tool-card"><div class="tool-title"><span class="tool-icon">₹</span><div><span class="badge online">ONLINE</span><h2>Currency</h2></div></div><p>Internet is used only when you tap the live-rate button.</p><div class="converter-row"><input id="currencyAmount" inputmode="decimal" value="1" aria-label="Currency amount"><select id="currencyFrom" aria-label="From currency"><option>USD</option><option>EUR</option><option>GBP</option><option>INR</option><option>JPY</option><option>AUD</option><option>CAD</option></select><span>→</span><select id="currencyTo" aria-label="To currency"><option>INR</option><option>USD</option><option>EUR</option><option>GBP</option><option>JPY</option><option>AUD</option><option>CAD</option></select></div><button id="currencyBtn" class="primary-btn">Get live rate <span>↗</span></button><div id="currencyResult" class="tool-result">No live rate loaded.</div></div>
+      <div class="tool-hero"><div><span class="eyebrow">INDIA FIRST</span><h2>Everyday tools, one swipe away</h2></div><span class="tool-dot"></span></div>
+
+      <div class="tool-card indian-card">
+        <div class="tool-title"><span class="tool-icon">1L</span><div><span class="badge offline">OFFLINE</span><h2>Indian number system</h2></div></div>
+        <p>Read and group values as thousand, lakh, crore, arab and kharab. No internet needed.</p>
+        <div class="converter-row indian-input-row"><input id="indianNumberInput" inputmode="decimal" placeholder="e.g. 12500000" aria-label="Indian number"><button id="indianFormatBtn" class="primary-btn compact-btn">Format</button></div>
+        <div id="indianNumberResult" class="tool-result">₹1,25,00,000</div>
+        <div id="indianWords" class="words-result">One Crore Twenty Five Lakh</div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-title"><span class="tool-icon">₹</span><div><span class="badge offline">OFFLINE</span><h2>Indian money</h2></div></div>
+        <p>Instantly format rupees in Indian grouping and spell the amount in words.</p>
+        <div class="converter-row indian-input-row"><input id="rupeeInput" inputmode="decimal" value="100000" aria-label="Rupee amount"><button id="rupeeFormatBtn" class="primary-btn compact-btn">Format ₹</button></div>
+        <div id="rupeeResult" class="tool-result">₹1,00,000</div>
+        <div id="rupeeWords" class="words-result">One Lakh Rupees Only</div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-title"><span class="tool-icon">↔</span><div><span class="badge offline">OFFLINE</span><h2>Units</h2></div></div>
+        <p>Common Indian-friendly length, weight and temperature conversions.</p>
+        <select id="unitType"><option value="length">Length</option><option value="weight">Weight</option><option value="temperature">Temperature</option></select>
+        <div class="converter-row"><input id="unitInput" inputmode="decimal" value="1" aria-label="Unit amount"><select id="unitFrom" aria-label="From unit"></select><span>→</span><select id="unitTo" aria-label="To unit"></select></div><div id="unitResult" class="tool-result">—</div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-title"><span class="tool-icon">₹↗</span><div><span class="badge online">ONLINE</span><h2>Live currency</h2></div></div>
+        <p>Internet is used only when you tap the live-rate button. INR is the default Indian currency.</p>
+        <div class="converter-row"><input id="currencyAmount" inputmode="decimal" value="1" aria-label="Currency amount"><select id="currencyFrom" aria-label="From currency"><option>INR</option><option>USD</option><option>EUR</option><option>GBP</option><option>JPY</option><option>AED</option><option>AUD</option><option>CAD</option><option>SGD</option></select><span>→</span><select id="currencyTo" aria-label="To currency"><option>USD</option><option>INR</option><option>EUR</option><option>GBP</option><option>JPY</option><option>AED</option><option>AUD</option><option>CAD</option><option>SGD</option></select></div><button id="currencyBtn" class="primary-btn">Get live rate <span>↗</span></button><div id="currencyResult" class="tool-result">No live rate loaded.</div></div>
     </section>
 
     <section class="history-card"><div class="section-head"><div><span class="eyebrow">RECENT</span><h2>History</h2></div><button id="clearHistory" class="text-btn">Clear all</button></div><div id="historyList" class="history-list"><div class="empty">Your calculations will appear here.</div></div></section>
     <div id="toast" class="toast" role="status"></div>
   </main>
-  <dialog id="settingsDialog"><div class="dialog-head"><div><span class="eyebrow">PREFERENCES</span><h2>Settings</h2></div><button id="closeSettings" class="icon-btn" aria-label="Close settings">×</button></div><label>Theme<select id="themeSelect"><option value="system">System</option><option value="dark">Dark</option><option value="light">Light</option></select></label><label>Angle mode<select id="angleSelect"><option value="DEG">Degrees</option><option value="RAD">Radians</option></select></label><label class="switch-row"><span>Haptic feedback</span><input type="checkbox" id="hapticToggle" checked></label><button id="shareResult" class="primary-btn">Share current result</button></dialog>
+  <dialog id="settingsDialog"><div class="dialog-head"><div><span class="eyebrow">PREFERENCES</span><h2>Settings</h2></div><button id="closeSettings" class="icon-btn" aria-label="Close settings">×</button></div><label>Theme<select id="themeSelect"><option value="system">System</option><option value="dark">Dark</option><option value="light">Light</option></select></label><label>Number format<select id="numberFormatSelect"><option value="indian">Indian • 1,00,000</option><option value="international">International • 100,000</option></select></label><label>Angle mode<select id="angleSelect"><option value="DEG">Degrees</option><option value="RAD">Radians</option></select></label><label class="switch-row"><span>Haptic feedback</span><input type="checkbox" id="hapticToggle" checked></label><button id="shareResult" class="primary-btn">Share current result</button></dialog>
   <script src="js/app.js"></script>
 </body>
 </html>
